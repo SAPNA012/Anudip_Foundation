@@ -1,0 +1,126 @@
+/*TABLE : student*/
+create table student(
+    SID int primary key auto_increment,Student_Name VARCHAR(255) NOT NULL, Age int,
+    class varchar(50), Branch  varchar(50)  , mobile_num    int  ,Address varchar(500)
+);
+
+mysql> desc student;
++--------------+--------------+------+-----+---------+----------------+--------+
+| Field                  | Type             | Null | Key | Default | Extra                  |
++--------------+--------------+------+-----+---------+----------------+--------+
+| SID                    | int                 | NO   | PRI | NULL    | auto_increment  |
+| Student_Name | varchar(100) | NO  |     | NULL    |                                |
+| Age                   | int                 | YES  |     | NULL    |                                |
+| class                | varchar(50)  | YES  |     | NULL    |                                 |
+| Branch            | varchar(50)  | YES  |     | NULL    |                                 |
+| mobile_num   | int                 | YES  |     | NULL    |                                 |
+| Address          | varchar(500) | YES  |     | NULL    |                               |
++--------------+--------------+------+-----+---------+----------------+--------+
+
+/*TABLE : course*/
+
+ create table course(courseID int primary key auto_increment, courseName varchar(200),
+courseDuration varchar(50));
+
+mysql> desc course;
++----------------+--------------+------+-----+---------+----------------+---+
+| Field              | Type            | Null | Key | Default | Extra                  |
++----------------+--------------+------+-----+---------+----------------+---+
+| courseID        | int               | NO   | PRI | NULL    | auto_increment |
+| courseName   | varchar(200) | YES  |     | NULL    |                           |
+| courseDuration | varchar(50)  | YES  |     | NULL    |                          |
++----------------+--------------+------+-----+---------+----------------+----+
+
+/*TABLE :Enrollment */
+
+ create table Enrollment(EnrollmentID int primary key auto_increment,SID int,courseID int,foreign key(SID) references student(SID),foreign key(courseID) references course(courseID)  );
+
+
+mysql> desc  enrollment;
++--------------+------+------+-----+---------+----------------+----+
+| Field        | Type | Null | Key | Default | Extra                        |
++--------------+------+------+-----+---------+----------------+-----+
+| EnrollmentID | int  | NO   | PRI | NULL    | auto_increment |
+| SID          | int  | YES  | MUL | NULL    |                                  |
+| courseID     | int  | YES  | MUL | NULL    |                              |
++--------------+------+------+-----+---------+----------------+----+
+
+
+/*TABLE:Library*/
+ create table Library(LID int primary key auto_increment,BookName varchar(300),BookID varchar(100),DateOfIssue date, DateOfreturn date,BorrowerId int,BorrowerType enum('Student','Faculty'));
+
+
+mysql> desc  library;
++--------------+---------------------------+------+-----+---------+----------------+------+
+| Field            | Type                              | Null | Key | Default | Extra                       |
++--------------+---------------------------+------+-----+---------+----------------+-----+
+| LID                 | int                                | NO   | PRI | NULL    | auto_increment |
+| BookName     | varchar(300)              | YES  |     | NULL      |                               |
+| BookID           | varchar(100)                | YES  |     | NULL    |                             |
+| DateOfIssue  | date                              | YES  |     | NULL    |                               |
+| DateOfreturn | date                              | YES  |     | NULL    |                              |
+| BorrowerId   | int                                 | YES  |     | NULL    |                               |
+| BorrowerType | enum('Student','Faculty') | YES  |     | NULL    |                      |
++--------------+---------------------------+------+-----+---------+----------------+----+
+
+
+/*TABLE:Faculty*/
+
+ create table Faculty(FacultyId int primary key auto_increment,FacultyName varchar(100) not null, FQualification varchar(150));
+
+mysql> desc faculty;
++----------------+--------------+------+-----+---------+----------------+-----+
+| Field              | Type           | Null | Key | Default     | Extra                  |
++----------------+--------------+------+-----+---------+----------------+-----+
+| FacultyId      | int               | NO   | PRI | NULL        | auto_increment |
+| FacultyName    | varchar(100) | NO   |     | NULL    |                           |
+| FQualification | varchar(150) | YES  |     | NULL    |                             |
++----------------+--------------+------+-----+---------+----------------+----+
+
+
+/*TABLE:StuAccount*/
+
+create table StuAccount(StuAccountId int primary key auto_increment,AccountType enum('Student_Fees',' Bus_Fees','Exam_Fees','Registration_fees') not null,Student_fees decimal(10,2), SID int, date DATE, Pay_Type enum('online','cash'),foreign key(SID) references student(SID));
+
+mysql> desc stuaccount;
++--------------+--------------------------------------------------------------------------+-----+---------+-----+--------+--------------------+
+| Field             | Type                                                                                                              | Null   | Key | Default | Extra               |
++--------------+--------------------------------------------------------------------------+-----+---------+--------------------+---------------+
+| StuAccountId | int                                                                                                           | NO   | PRI | NULL      | auto_increment |
+| AccountType  | enum('Student_Fees',' Bus_Fees','Exam_Fees','Registration_fees') | NO   |       | NULL      |                            |
+| Student_fees | decimal(10,2)                                                                                          | YES  |        | NULL      |                            |
+| SID                 | int                                                                                                             | YES  | MUL | NULL    |                            |
+| date              | date                                                                                                            | YES  |     | NULL       |                               |
+| Pay_Type     | enum('online','cash')                                                                              | YES  |     | NULL         |                               |
++--------------+------------------------------------------------------------------+------+-----+---------+----------------+---------------------+
+
+/*TABLE:FacultyAccount*/
+
+create table FacultyAccount(FacultyAccID int primary key auto_increment,Salary decimal(10,2),FacultyId int, date DATE, foreign key(FacultyId) references Faculty(FacultyId));
+
+mysql> desc facultyaccount;
++--------------+-----------------+------+-----+---------+----------------+----+
+| Field             | Type                | Null | Key | Default | Extra                     |
++--------------+------------------+------+---------+-------+--------------------+
+| FacultyAccID | int                 | NO   | PRI | NULL    | auto_increment    |
+| Salary           | decimal(10,2) | YES  |       | NULL    |                                |
+| FacultyId     | int                  | YES  | MUL | NULL    |                               |
+| date             | date                | YES  |         | NULL     |                               |
++--------------+---------------+------+-----+---------+----------------+-------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
